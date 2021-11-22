@@ -1,0 +1,109 @@
+PODS:
+  - Fuse (1.4.0)
+  - GoogleDataTransport (8.4.0):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (~> 1.2)
+  - GoogleMLKit/MLKitCore (2.1.0):
+    - MLKitCommon (~> 2.1.0)
+  - GoogleMLKit/TextRecognition (2.1.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitTextRecognition (~> 1.2.0)
+  - GoogleToolboxForMac/DebugUtils (2.3.1):
+    - GoogleToolboxForMac/Defines (= 2.3.1)
+  - GoogleToolboxForMac/Defines (2.3.1)
+  - GoogleToolboxForMac/Logger (2.3.1):
+    - GoogleToolboxForMac/Defines (= 2.3.1)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.1)":
+    - GoogleToolboxForMac/Defines (= 2.3.1)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.1)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.1)
+    - GoogleToolboxForMac/Defines (= 2.3.1)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.1)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.1)"
+  - GoogleUtilities/Environment (7.3.1):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (7.3.1):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/UserDefaults (7.3.1):
+    - GoogleUtilities/Logger
+  - GoogleUtilitiesComponents (1.0.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.5.0)
+  - MLKitCommon (2.1.0):
+    - GoogleDataTransport (~> 8.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.12)
+  - MLKitTextRecognition (1.2.0):
+    - MLKitCommon (~> 2.1)
+    - MLKitVision (~> 1.2)
+  - MLKitVision (1.2.0):
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - MLKitCommon (~> 2.1)
+    - Protobuf (~> 3.12)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
+  - NextLevel (0.17.0)
+  - PromisesObjC (1.2.12)
+  - Protobuf (3.17.0)
+
+DEPENDENCIES:
+  - Fuse
+  - GoogleMLKit/TextRecognition
+  - NextLevel (from `https://github.com/NextLevel/NextLevel.git`, branch `main`)
+
+SPEC REPOS:
+  trunk:
+    - Fuse
+    - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GoogleUtilitiesComponents
+    - GTMSessionFetcher
+    - MLKitCommon
+    - MLKitTextRecognition
+    - MLKitVision
+    - nanopb
+    - PromisesObjC
+    - Protobuf
+
+EXTERNAL SOURCES:
+  NextLevel:
+    :branch: main
+    :git: https://github.com/NextLevel/NextLevel.git
+
+CHECKOUT OPTIONS:
+  NextLevel:
+    :commit: 2e890c96676718c3ac08673af92d298ce5055a83
+    :git: https://github.com/NextLevel/NextLevel.git
+
+SPEC CHECKSUMS:
+  Fuse: 48eaf66d0c407c7f8b0ddb168888dc4637e87f14
+  GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
+  GoogleMLKit: 6ca2a10de262ee1017b52ac045e8967884ace992
+  GoogleToolboxForMac: 471e0c05d39506e50e6398f46fa9a12ae0efeff9
+  GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
+  GoogleUtilitiesComponents: a69c0b3b369ba443e988141e75ef49d9010b1c80
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  MLKitCommon: 9ed187a042139d51c0d8bf6a8301bb20b375c576
+  MLKitTextRecognition: 332ce64ab281af7b38c806746e1fc53a58eb59ef
+  MLKitVision: 51385878c9100024478971856510f9271ff555b5
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  NextLevel: d07859347dd5c058e59bcde2fba90032c0d7aa23
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Protobuf: 7327d4444215b5f18e560a97f879ff5503c4581c
+
+PODFILE CHECKSUM: 0595707560cbc25f46961e0c1332f1479401f758
+
+COCOAPODS: 1.10.1
