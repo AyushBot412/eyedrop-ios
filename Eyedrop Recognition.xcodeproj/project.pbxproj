@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -109,7 +109,6 @@
 				33A7EF21267D66E5005F632C /* Factory */,
 				33A7EF0B267D59B9005F632C /* Models */,
 				33A7EF0C267D59D0005F632C /* Delegates */,
-				33A7EF0D267D59E1005F632C /* Views */,
 				33A7EF0A267D59B2005F632C /* View Controllers */,
 			);
 			path = "Eyedrop Recognition";
@@ -151,13 +150,6 @@
 				33A7EF30267D7372005F632C /* CoreDelegates.swift */,
 			);
 			path = Delegates;
-			sourceTree = "<group>";
-		};
-		33A7EF0D267D59E1005F632C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		33A7EF0E267D59FC005F632C /* Constants */ = {
@@ -258,7 +250,7 @@
 				};
 			};
 			buildConfigurationList = 33A7EEED267D5906005F632C /* Build configuration list for PBXProject "Eyedrop Recognition" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -515,14 +507,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = ANZUB2C757;
+				DEVELOPMENT_TEAM = S7CUU35CB9;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Ludovico.Eyedrop-Recognition";
+				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -537,14 +529,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = ANZUB2C757;
+				DEVELOPMENT_TEAM = S7CUU35CB9;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Ludovico.Eyedrop-Recognition";
+				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -35,7 +35,7 @@ class CaptureVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
 
-        nextLevel.configureAutoFocusMode()
+        //nextLevel.configureAutoFocusMode()
         nextLevel.videoZoomFactor = 0
 
 
@@ -430,60 +430,77 @@ class CaptureVC: UIViewController {
     }
     
     func beginModelPrediction(image: UIImage) {
-        let methodStart = NSDate()
+        let bottleImage = image
+        let imageData = bottleImage.jpegData(compressionQuality:1)
+        let fileContent = imageData?.base64EncodedString()
+        let postData = fileContent!.data(using: .utf8)
+
+    // Initialize Inference Server Request with API KEY, Model, and Model Version
+        var request = URLRequest(url: URL(string: "https://detect.roboflow.com/eyedrop-bottle-project/3?api_key=bxmL0nN6Wj2JNXXHPclD&name=currentImage.jpg")!,timeoutInterval: Double.infinity)
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = postData
+
+    // Execute Post Request
+        URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+
+        // Parse Response to String
+            guard let data = data else {
+                print(String(describing: error))
+                self.isClassifying = false
+                return
+            }
+
+        // Convert Response String to Dictionary
+            //do {
+                //let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            //} catch {
+                //print(error.localizedDescription)
+                //self.isClassifying = false
+            //}
+
+        // Parse String Response
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Response data: \(dataString)")
+            // You can parse the response data here
+                self.parseData(bottleString: dataString)
+
+            } else {
+                self.isClassifying = false
+                print("Error: Unable to convert data to string")
+            }
+        }).resume()
         
-        
-        // 224x224 inputs for mobilenet
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 224, height: 224), true, 2.0)
-        image.draw(in: CGRect(x: 0, y: 0, width: 224, height: 224))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(newImage.size.width), Int(newImage.size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
-        guard (status == kCVReturnSuccess) else {
-            self.isClassifying = false
-            return
+    }
+
+    func parseData(bottleString: String){
+        if bottleString.contains("Alphagan"){
+                let bottleType_all = BottleTypes_All(rawValue: "ALPHAGAN")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Combigan"){
+                let bottleType_all = BottleTypes_All(rawValue: "COMBIGAN")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Dorzolamide"){
+                let bottleType_all = BottleTypes_All(rawValue: "DORZOLAMIDE")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Latanoprost"){
+                let bottleType_all = BottleTypes_All(rawValue: "LATANOPROST")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Predforte"){
+                let bottleType_all = BottleTypes_All(rawValue: "PREDFORTE")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Rhopressa"){
+                let bottleType_all = BottleTypes_All(rawValue: "RHOPRESSA")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Rocklatan"){
+                let bottleType_all = BottleTypes_All(rawValue: "ROCKLATAN")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+        }else if bottleString.contains("Vigamox"){
+                let bottleType_all = BottleTypes_All(rawValue: "VIGAMOX")!
+                self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
         }
-        
-        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
-        
-        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: pixelData, width: Int(newImage.size.width), height: Int(newImage.size.height), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue) //3
-        
-        context?.translateBy(x: 0, y: newImage.size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-        
-        UIGraphicsPushContext(context!)
-        newImage.draw(in: CGRect(x: 0, y: 0, width: newImage.size.width, height: newImage.size.height))
-        UIGraphicsPopContext()
-        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
- 
-        
-        // Make prediction
-        guard let prediction = try? model.prediction(MobilenetV3large_input: pixelBuffer!), let confidence = prediction.Identity[prediction.classLabel] else {
-            self.isClassifying = false
-            return
-        }
-        
-        let executionTime = NSDate().timeIntervalSince(methodStart as Date)
-        print("Execution time: \(executionTime)")
-        
-    
-        let confidenceString = String(format:"%.2f", confidence*100)
-        print("\(prediction.classLabel) (with \(confidenceString)% confidence).")
-        
-        guard confidence > 0.8 else {
-            self.isClassifying = false
-            return
-        }
-        
-        let bottleType_all = BottleTypes_All(rawValue: prediction.classLabel)!
-        
-        self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
         self.isClassifying = false
+
     }
     
     // MARK: Selectors
