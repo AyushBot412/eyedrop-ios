@@ -452,18 +452,18 @@ class CaptureVC: UIViewController {
             }
 
         // Convert Response String to Dictionary
-            //do {
-                //let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            //} catch {
-                //print(error.localizedDescription)
-                //self.isClassifying = false
-            //}
+            do {
+                let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+                self.isClassifying = false
+            }
 
         // Parse String Response
             if let dataString = String(data: data, encoding: .utf8) {
                 print("Response data: \(dataString)")
             // You can parse the response data here
-                self.parseData(bottleString: dataString)
+                self.parseData(bottleString: dataString, dataJson: data)
 
             } else {
                 self.isClassifying = false
@@ -473,7 +473,25 @@ class CaptureVC: UIViewController {
         
     }
 
-    func parseData(bottleString: String){
+    func parseData(bottleString: String, dataJson: Data){
+        do {
+            if let dict = try JSONSerialization.jsonObject(with: dataJson, options: []) as? [String: Any] {
+                // The dictionary is not nil, so we can safely unwrap it
+                if let confidence = dict["confidence"] as? Double, !dict.isEmpty && confidence >= 0.9 {
+                    // Your code when confidence is sufficient
+                } else {
+                    print("Insufficient confidence or empty dictionary")
+                    self.isClassifying = false
+                }
+            } else {
+                print("Failed to deserialize JSON data")
+                self.isClassifying = false
+            }
+        } catch {
+            print("Error deserializing JSON data: \(error.localizedDescription)")
+            self.isClassifying = false
+        }
+        
         if bottleString.contains("Alphagan"){
                 let bottleType_all = BottleTypes_All(rawValue: "ALPHAGAN")!
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
