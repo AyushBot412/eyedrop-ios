@@ -62,13 +62,18 @@ class CaptureVC: UIViewController {
     }
 
     // MARK: Variables
-    let model = NEW_mnetv3__d__trainable_withMoreAug_0_0001lr_224_dim_32_bs_10_epochs_0_6_droput_0_9613970518112183_acc_h5()
+    //let model = NEW_mnetv3__d__trainable_withMoreAug_0_0001lr_224_dim_32_bs_10_epochs_0_6_droput_0_9613970518112183_acc_h5()
     var lastClassification: Date?
     let nextLevel = NextLevel.shared
     var flashEnabled = false
     var hasVideoAccess = false
     var didConfigureViews = false
     var isClassifying = false
+    //let synthesizer = AVSpeechSynthesizer()
+    var player: AVAudioPlayer!
+    var isSpeaking = false
+    var lastSpoke = ""
+    
     
     public var startLocation: CGPoint!
     public var startedZoom = false
@@ -417,6 +422,9 @@ class CaptureVC: UIViewController {
                 if let textClassifiedBottleType = classifiedBottleType {
                     //Settle on text processing
                     self.classificationDelegate?.classifiedFrame(bottleType: textClassifiedBottleType, bottleType_all: nil)
+                    if(self.lastSpoke != textClassifiedBottleType.rawValue){
+                        self.textToSpeech(bottle: textClassifiedBottleType.rawValue)
+                    }
                     self.isClassifying = false
                 } else {
                     //Use image classification model
@@ -493,33 +501,88 @@ class CaptureVC: UIViewController {
         }
         
         if bottleString.contains("Alphagan"){
-                let bottleType_all = BottleTypes_All(rawValue: "ALPHAGAN")!
+                let bottleType_all = BottleTypes_All(rawValue: "ALPHAGAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Alphagan"){
+                textToSpeech(bottle: "ALPHAGAN")
+            }
         }else if bottleString.contains("Combigan"){
-                let bottleType_all = BottleTypes_All(rawValue: "COMBIGAN")!
+                let bottleType_all = BottleTypes_All(rawValue: "COMBIGAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Combigan"){
+                textToSpeech(bottle: "Combigan")
+            }
         }else if bottleString.contains("Dorzolamide"){
-                let bottleType_all = BottleTypes_All(rawValue: "DORZOLAMIDE")!
+                let bottleType_all = BottleTypes_All(rawValue: "DORZOLAMIDE")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Dorzolamide"){
+                textToSpeech(bottle: "Dorzolamide")
+            }
         }else if bottleString.contains("Latanoprost"){
-                let bottleType_all = BottleTypes_All(rawValue: "LATANOPROST")!
+                let bottleType_all = BottleTypes_All(rawValue: "LATANOPROST")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Latanoprost"){
+                textToSpeech(bottle: "Latanoprost")
+            }
         }else if bottleString.contains("Predforte"){
-                let bottleType_all = BottleTypes_All(rawValue: "PREDFORTE")!
+                let bottleType_all = BottleTypes_All(rawValue: "PREDFORTE")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Predforte"){
+                textToSpeech(bottle: "Predforte")
+            }
         }else if bottleString.contains("Rhopressa"){
-                let bottleType_all = BottleTypes_All(rawValue: "RHOPRESSA")!
+                let bottleType_all = BottleTypes_All(rawValue: "RHOPRESSA")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Rhopressa"){
+                textToSpeech(bottle: "Rhopressa")
+            }
         }else if bottleString.contains("Rocklatan"){
-                let bottleType_all = BottleTypes_All(rawValue: "ROCKLATAN")!
+                let bottleType_all = BottleTypes_All(rawValue: "ROCKLATAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Rocklatan"){
+                textToSpeech(bottle: "Rocklatan")
+            }
         }else if bottleString.contains("Vigamox"){
-                let bottleType_all = BottleTypes_All(rawValue: "VIGAMOX")!
+                let bottleType_all = BottleTypes_All(rawValue: "VIGAMOX")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
+            if(self.lastSpoke != "Vigamox"){
+                textToSpeech(bottle: "Vigamox")
+            }
         }
         self.isClassifying = false
 
     }
+    
+    func textToSpeech(bottle: String){
+        self.lastSpoke = bottle
+        let fileName = bottle.lowercased()
+        print(fileName)
+        let pathToSound = Bundle.main.path(forResource:fileName, ofType:"mp3")!
+        let url = URL(fileURLWithPath: pathToSound)
+        
+        print(url)
+        
+        do{
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        }catch{
+            
+        }
+    
+        
+        /*let utterance = AVSpeechUtterance(string: bottle)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.5
+        
+        self.synthesizer.speak(utterance)*/
+        
+        
+        //sleep(4)
+        
+        
+    }
+    
+   
     
     // MARK: Selectors
     @objc func screenTapped(sender: UITapGestureRecognizer) {
