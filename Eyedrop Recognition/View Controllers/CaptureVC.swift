@@ -69,12 +69,12 @@ class CaptureVC: UIViewController {
     var hasVideoAccess = false
     var didConfigureViews = false
     var isClassifying = false
-    //let synthesizer = AVSpeechSynthesizer()
-    var player: AVAudioPlayer!
-    var isSpeaking = false
-    var lastSpoke = ""
+    let synthesizer = AVSpeechSynthesizer()
+    //var player: AVAudioPlayer!
+    //var isSpeaking = false
+    //var lastSpoke = ""
     
-    
+    var videoRunning = false
     public var startLocation: CGPoint!
     public var startedZoom = false
     public var previousPanTranslation: CGFloat = 0.0
@@ -123,6 +123,30 @@ class CaptureVC: UIViewController {
         return view
     }()
     
+    let zoomSlider: UIView = {
+        let slider = UISlider()
+        slider.minimumValue = 0
+        slider.maximumValue = 100
+        slider.value = 0
+        slider.addTarget(CaptureVC.self, action: #selector(sliderMoved(_:)), for: .valueChanged)
+        return slider
+    }()
+    
+    let zoomButton : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Zoom: 0%", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = .darkGray
+        btn.isUserInteractionEnabled = false
+        btn.layer.cornerRadius = 20
+        btn.sizeToFit() // Adjust size to fit content
+    
+        
+        return btn
+        
+    }()
+    
+    
     lazy var photoLibrary: UIButton = {
         let btn = UIButton(type: .custom)
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -140,6 +164,15 @@ class CaptureVC: UIViewController {
     // MARK: Helper functions
     func start() {
         self.checkAuthorization()
+        print("called start")
+    }
+    
+    func stop(){
+        if videoRunning{
+            nextLevel.stop()
+            videoRunning = false
+            didConfigureViews = false
+        }
     }
     
     func setup(accessGranted: Bool) {
@@ -249,16 +282,28 @@ class CaptureVC: UIViewController {
 
         view.addSubview(photoLibrary)
         view.addSubview(frontFlash)
+        view.addSubview(zoomSlider)
+        view.addSubview(zoomButton)
+        
+        let centerOffset: CGFloat = 50 // Adjust this value to move the slider farther down
+
+        zoomSlider.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, centerX: view.centerXAnchor, paddingTop: 0, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: SizeManager.padding, width: 0, height: 40)
+
+        // Set the top anchor to be lower than the center of the view
+        zoomSlider.topAnchor.constraint(equalTo: view.centerYAnchor, constant: centerOffset).isActive = true
+        
+        zoomButton.anchor(top: zoomSlider.bottomAnchor, left: nil, bottom: nil, right: nil, centerX: view.centerXAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: zoomButton.frame.width + 20, height: 40)
+        
 
 
-        let hasNotch = UIDevice.current.hasNotch
+        let additionalTopPadding: CGFloat = 25 // Adjust this value as needed
 
-        flashButton.anchor(top: hasNotch ? nil : view.safeAreaLayoutGuide.topAnchor, left: nil, bottom: hasNotch ? view.safeAreaLayoutGuide.bottomAnchor : nil, right: hasNotch ? nil : view.rightAnchor, centerX: hasNotch ? view.centerXAnchor : nil, paddingTop: SizeManager.padding, paddingLeft: 0, paddingBottom: SizeManager.padding, paddingRight: SizeManager.padding, width: buttonWidth, height: buttonWidth)
+        flashButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, centerX: nil, paddingTop: SizeManager.padding + additionalTopPadding, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: 0, width: buttonWidth, height: buttonWidth)
+
         flashButton.imageView?.anchor(top: flashButton.topAnchor, left: flashButton.leftAnchor, bottom: flashButton.bottomAnchor, right: flashButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
 
-   
+        frontFlash.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
 
-        frontFlash.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
 
         
         addGestures()
@@ -342,6 +387,7 @@ class CaptureVC: UIViewController {
 
         nextLevel.automaticallyConfiguresApplicationAudioSession = true
         try? nextLevel.start()
+        videoRunning = true
     }
 
     
@@ -422,9 +468,9 @@ class CaptureVC: UIViewController {
                 if let textClassifiedBottleType = classifiedBottleType {
                     //Settle on text processing
                     self.classificationDelegate?.classifiedFrame(bottleType: textClassifiedBottleType, bottleType_all: nil)
-                    if(self.lastSpoke != textClassifiedBottleType.rawValue){
-                        self.textToSpeech(bottle: textClassifiedBottleType.rawValue)
-                    }
+//                    if(self.lastSpoke != textClassifiedBottleType.rawValue){
+//                        self.textToSpeech(bottle: textClassifiedBottleType.rawValue)
+//                    }
                     self.isClassifying = false
                 } else {
                     //Use image classification model
@@ -503,84 +549,86 @@ class CaptureVC: UIViewController {
         if bottleString.contains("Alphagan"){
                 let bottleType_all = BottleTypes_All(rawValue: "ALPHAGAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Alphagan"){
-                textToSpeech(bottle: "ALPHAGAN")
-            }
+//            if(self.lastSpoke != "Alphagan"){
+//                textToSpeech(bottle: "ALPHAGAN")
+//            }
         }else if bottleString.contains("Combigan"){
                 let bottleType_all = BottleTypes_All(rawValue: "COMBIGAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Combigan"){
-                textToSpeech(bottle: "Combigan")
-            }
+//            if(self.lastSpoke != "Combigan"){
+//                textToSpeech(bottle: "Combigan")
+//            }
         }else if bottleString.contains("Dorzolamide"){
                 let bottleType_all = BottleTypes_All(rawValue: "DORZOLAMIDE")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Dorzolamide"){
-                textToSpeech(bottle: "Dorzolamide")
-            }
+//            if(self.lastSpoke != "Dorzolamide"){
+//                textToSpeech(bottle: "Dorzolamide")
+//            }
         }else if bottleString.contains("Latanoprost"){
                 let bottleType_all = BottleTypes_All(rawValue: "LATANOPROST")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Latanoprost"){
-                textToSpeech(bottle: "Latanoprost")
-            }
+//            if(self.lastSpoke != "Latanoprost"){
+//                textToSpeech(bottle: "Latanoprost")
+//            }
         }else if bottleString.contains("Predforte"){
                 let bottleType_all = BottleTypes_All(rawValue: "PREDFORTE")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Predforte"){
-                textToSpeech(bottle: "Predforte")
-            }
+//            if(self.lastSpoke != "Predforte"){
+//                textToSpeech(bottle: "Predforte")
+//            }
         }else if bottleString.contains("Rhopressa"){
                 let bottleType_all = BottleTypes_All(rawValue: "RHOPRESSA")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Rhopressa"){
-                textToSpeech(bottle: "Rhopressa")
-            }
+//            if(self.lastSpoke != "Rhopressa"){
+//                textToSpeech(bottle: "Rhopressa")
+//            }
         }else if bottleString.contains("Rocklatan"){
                 let bottleType_all = BottleTypes_All(rawValue: "ROCKLATAN")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Rocklatan"){
-                textToSpeech(bottle: "Rocklatan")
-            }
+//            if(self.lastSpoke != "Rocklatan"){
+//                textToSpeech(bottle: "Rocklatan")
+//            }
         }else if bottleString.contains("Vigamox"){
                 let bottleType_all = BottleTypes_All(rawValue: "VIGAMOX")
                 self.classificationDelegate?.classifiedFrame(bottleType: nil, bottleType_all: bottleType_all)
-            if(self.lastSpoke != "Vigamox"){
-                textToSpeech(bottle: "Vigamox")
-            }
+//            if(self.lastSpoke != "Vigamox"){
+//                textToSpeech(bottle: "Vigamox")
+//            }
         }
         self.isClassifying = false
 
     }
     
-    func textToSpeech(bottle: String){
-        self.lastSpoke = bottle
-        let fileName = bottle.lowercased()
-        print(fileName)
-        let pathToSound = Bundle.main.path(forResource:fileName, ofType:"mp3")!
-        let url = URL(fileURLWithPath: pathToSound)
-        
-        print(url)
-        
-        do{
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-        }catch{
-            
-        }
-    
-        
-        /*let utterance = AVSpeechUtterance(string: bottle)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = 0.5
-        
-        self.synthesizer.speak(utterance)*/
-        
-        
-        //sleep(4)
-        
-        
-    }
+//    func textToSpeech(bottle: String){
+//        self.lastSpoke = bottle
+//        let fileName = bottle.lowercased()
+//        print(fileName)
+//        let pathToSound = Bundle.main.path(forResource:fileName, ofType:"mp3")!
+//        let url = URL(fileURLWithPath: pathToSound)
+//        
+//        print(url)
+//        
+//        do{
+//            player = try AVAudioPlayer(contentsOf: url)
+//            player?.play()
+//        }catch{
+//            
+//        }
+//    
+//        
+//        player = try! AVAudioPlayer(contentsOf:url)
+//        player!.play()
+//        /*let utterance = AVSpeechUtterance(string: bottle)
+//        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+//        utterance.rate = 0.5
+//        
+//        self.synthesizer.speak(utterance)*/
+//        
+//        
+//        sleep(4)
+//        
+//        
+//    }
     
    
     
@@ -601,6 +649,12 @@ class CaptureVC: UIViewController {
     @objc func didSwipeUp(sender _: UISwipeGestureRecognizer) {
        
     }
+    
+    @objc func sliderMoved(_ sender: UISlider) {
+          let zoomValue = sender.value
+          nextLevel.videoZoomFactor = Float(zoomValue)
+          zoomButton.setTitle("Zoom: \(Int(sender.value))%", for: .normal)
+      }
 
     @objc func screenPanned(sender: UIPanGestureRecognizer) {
         print("&&&&&", sender.velocity(in: previewView).y)

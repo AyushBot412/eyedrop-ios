@@ -41,6 +41,8 @@
 		3424DC312BE4B6E70050E0C0 /* rhopressa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC302BE4B6E70050E0C0 /* rhopressa.mp3 */; };
 		3424DC332BE4B6ED0050E0C0 /* rocklatan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC322BE4B6ED0050E0C0 /* rocklatan.mp3 */; };
 		3424DC352BE4B6F10050E0C0 /* vigamox.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */; };
+		34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */; };
+		34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		3424DC302BE4B6E70050E0C0 /* rhopressa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rhopressa.mp3; sourceTree = "<group>"; };
 		3424DC322BE4B6ED0050E0C0 /* rocklatan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rocklatan.mp3; sourceTree = "<group>"; };
 		3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = vigamox.mp3; sourceTree = "<group>"; };
+		34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		97D39053F8A17E406D434843 /* Pods-Eyedrop Recognition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eyedrop Recognition.debug.xcconfig"; path = "Target Support Files/Pods-Eyedrop Recognition/Pods-Eyedrop Recognition.debug.xcconfig"; sourceTree = "<group>"; };
 		FFD238FF1A3992AEC8222ABC /* Pods_Eyedrop_Recognition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eyedrop_Recognition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -146,6 +150,8 @@
 				33A7EF1B267D63E4005F632C /* HomeVC.swift */,
 				33A7EF1D267D63F0005F632C /* CameraVC.swift */,
 				33A10B9A26C473B10070173C /* CaptureVC.swift */,
+				34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */,
+				34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -403,6 +409,8 @@
 				33A7EF23267D66F5005F632C /* Factory.swift in Sources */,
 				33A7EF1A267D62A0005F632C /* ContainerVCModel.swift in Sources */,
 				33002E6D26C48FE50075B035 /* NEW_mnetv2_-d__trainable_withAug_1e-5_lr_224_dim_32_bs_20_epochs_0.5_droput_0.9375_acc.h5.mlmodel in Sources */,
+				34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */,
+				34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */,
 				33A1A4DC26C0B8760070173C /* LabelRecognitionManager.swift in Sources */,
 				33A7EF20267D66A3005F632C /* Extensions.swift in Sources */,
 				33A7EF16267D5BDE005F632C /* DictionaryManager.swift in Sources */,
@@ -547,14 +555,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = S7CUU35CB9;
+				DEVELOPMENT_TEAM = 62DW3Y5D24;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uci.uceye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -569,14 +579,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = S7CUU35CB9;
+				DEVELOPMENT_TEAM = 62DW3Y5D24;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uci.uceye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
