@@ -128,7 +128,7 @@ class CaptureVC: UIViewController {
         slider.minimumValue = 0
         slider.maximumValue = 100
         slider.value = 0
-        slider.addTarget(CaptureVC.self, action: #selector(sliderMoved(_:)), for: .valueChanged)
+        slider.addTarget(self, action: #selector(sliderMoved(_:)), for: .valueChanged)
         return slider
     }()
     
