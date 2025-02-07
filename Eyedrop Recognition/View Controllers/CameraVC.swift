@@ -46,6 +46,7 @@ class CameraVC: UIImagePickerController {
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { [unowned self] granted in
                 if granted {
                     // Authorized
+                    
          
                 } else {
                     // Not authorized
@@ -107,4 +108,7 @@ extension CameraVC: UINavigationControllerDelegate, UIImagePickerControllerDeleg
 
         
     }
+    
+    
 }
+

@@ -1,5 +1,5 @@
 # Eye-Drop-Recognition
-iOS app that recognizes eye drop medication for Glaucoma patients.
+iOS app that recognizes eye drop medication for Glaucoma patients. (OLD VERSION)
 
 
 [![Watch the demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=03JwAxLuVcc)

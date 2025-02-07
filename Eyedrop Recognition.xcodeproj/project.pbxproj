@@ -33,6 +33,16 @@
 		33A7EF2F267D72BA005F632C /* ControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7EF2E267D72BA005F632C /* ControllerManager.swift */; };
 		33A7EF31267D7372005F632C /* CoreDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7EF30267D7372005F632C /* CoreDelegates.swift */; };
 		33A7EF33267D747B005F632C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A7EF32267D747B005F632C /* AlertManager.swift */; };
+		3424DC272BE4B6CB0050E0C0 /* alphagan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC262BE4B6CB0050E0C0 /* alphagan.mp3 */; };
+		3424DC292BE4B6D10050E0C0 /* combigan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC282BE4B6D10050E0C0 /* combigan.mp3 */; };
+		3424DC2B2BE4B6D80050E0C0 /* dorzolamide.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC2A2BE4B6D80050E0C0 /* dorzolamide.mp3 */; };
+		3424DC2D2BE4B6DC0050E0C0 /* latanoprost.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC2C2BE4B6DC0050E0C0 /* latanoprost.mp3 */; };
+		3424DC2F2BE4B6E10050E0C0 /* predforte.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC2E2BE4B6E10050E0C0 /* predforte.mp3 */; };
+		3424DC312BE4B6E70050E0C0 /* rhopressa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC302BE4B6E70050E0C0 /* rhopressa.mp3 */; };
+		3424DC332BE4B6ED0050E0C0 /* rocklatan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC322BE4B6ED0050E0C0 /* rocklatan.mp3 */; };
+		3424DC352BE4B6F10050E0C0 /* vigamox.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */; };
+		34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */; };
+		34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +74,17 @@
 		33A7EF2E267D72BA005F632C /* ControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerManager.swift; sourceTree = "<group>"; };
 		33A7EF30267D7372005F632C /* CoreDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDelegates.swift; sourceTree = "<group>"; };
 		33A7EF32267D747B005F632C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		3420D8AC2CBF5A290083D8B0 /* Eyedrop Recognition.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Eyedrop Recognition.entitlements"; sourceTree = "<group>"; };
+		3424DC262BE4B6CB0050E0C0 /* alphagan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alphagan.mp3; sourceTree = "<group>"; };
+		3424DC282BE4B6D10050E0C0 /* combigan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = combigan.mp3; sourceTree = "<group>"; };
+		3424DC2A2BE4B6D80050E0C0 /* dorzolamide.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dorzolamide.mp3; sourceTree = "<group>"; };
+		3424DC2C2BE4B6DC0050E0C0 /* latanoprost.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = latanoprost.mp3; sourceTree = "<group>"; };
+		3424DC2E2BE4B6E10050E0C0 /* predforte.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = predforte.mp3; sourceTree = "<group>"; };
+		3424DC302BE4B6E70050E0C0 /* rhopressa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rhopressa.mp3; sourceTree = "<group>"; };
+		3424DC322BE4B6ED0050E0C0 /* rocklatan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rocklatan.mp3; sourceTree = "<group>"; };
+		3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = vigamox.mp3; sourceTree = "<group>"; };
+		34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		97D39053F8A17E406D434843 /* Pods-Eyedrop Recognition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eyedrop Recognition.debug.xcconfig"; path = "Target Support Files/Pods-Eyedrop Recognition/Pods-Eyedrop Recognition.debug.xcconfig"; sourceTree = "<group>"; };
 		FFD238FF1A3992AEC8222ABC /* Pods_Eyedrop_Recognition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eyedrop_Recognition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -101,6 +122,8 @@
 		33A7EEF4267D5906005F632C /* Eyedrop Recognition */ = {
 			isa = PBXGroup;
 			children = (
+				3420D8AC2CBF5A290083D8B0 /* Eyedrop Recognition.entitlements */,
+				3424DC382BE4B85D0050E0C0 /* Sounds */,
 				33A7EF03267D5908005F632C /* Info.plist */,
 				33A7EF0F267D5A36005F632C /* Internal */,
 				33A7EF12267D5B66005F632C /* Managers */,
@@ -129,6 +152,8 @@
 				33A7EF1B267D63E4005F632C /* HomeVC.swift */,
 				33A7EF1D267D63F0005F632C /* CameraVC.swift */,
 				33A10B9A26C473B10070173C /* CaptureVC.swift */,
+				34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */,
+				34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -193,6 +218,21 @@
 				33A7EF22267D66F5005F632C /* Factory.swift */,
 			);
 			path = Factory;
+			sourceTree = "<group>";
+		};
+		3424DC382BE4B85D0050E0C0 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				3424DC262BE4B6CB0050E0C0 /* alphagan.mp3 */,
+				3424DC282BE4B6D10050E0C0 /* combigan.mp3 */,
+				3424DC2A2BE4B6D80050E0C0 /* dorzolamide.mp3 */,
+				3424DC2C2BE4B6DC0050E0C0 /* latanoprost.mp3 */,
+				3424DC2E2BE4B6E10050E0C0 /* predforte.mp3 */,
+				3424DC302BE4B6E70050E0C0 /* rhopressa.mp3 */,
+				3424DC322BE4B6ED0050E0C0 /* rocklatan.mp3 */,
+				3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		88DA5EA362339695E3566B49 /* Pods */ = {
@@ -272,6 +312,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3424DC272BE4B6CB0050E0C0 /* alphagan.mp3 in Resources */,
+				3424DC292BE4B6D10050E0C0 /* combigan.mp3 in Resources */,
+				3424DC2B2BE4B6D80050E0C0 /* dorzolamide.mp3 in Resources */,
+				3424DC2D2BE4B6DC0050E0C0 /* latanoprost.mp3 in Resources */,
+				3424DC2F2BE4B6E10050E0C0 /* predforte.mp3 in Resources */,
+				3424DC312BE4B6E70050E0C0 /* rhopressa.mp3 in Resources */,
+				3424DC332BE4B6ED0050E0C0 /* rocklatan.mp3 in Resources */,
+				3424DC352BE4B6F10050E0C0 /* vigamox.mp3 in Resources */,
 				33A7EF02267D5908005F632C /* LaunchScreen.storyboard in Resources */,
 				33A7EF2D267D70B6005F632C /* Main.storyboard in Resources */,
 				33A7EEFF267D5908005F632C /* Assets.xcassets in Resources */,
@@ -363,6 +411,8 @@
 				33A7EF23267D66F5005F632C /* Factory.swift in Sources */,
 				33A7EF1A267D62A0005F632C /* ContainerVCModel.swift in Sources */,
 				33002E6D26C48FE50075B035 /* NEW_mnetv2_-d__trainable_withAug_1e-5_lr_224_dim_32_bs_20_epochs_0.5_droput_0.9375_acc.h5.mlmodel in Sources */,
+				34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */,
+				34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */,
 				33A1A4DC26C0B8760070173C /* LabelRecognitionManager.swift in Sources */,
 				33A7EF20267D66A3005F632C /* Extensions.swift in Sources */,
 				33A7EF16267D5BDE005F632C /* DictionaryManager.swift in Sources */,
@@ -505,16 +555,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Eyedrop Recognition/Eyedrop Recognition.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = S7CUU35CB9;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 62DW3Y5D24;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uci.uceye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -527,16 +581,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Eyedrop Recognition/Eyedrop Recognition.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = S7CUU35CB9;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 62DW3Y5D24;
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew.Eyedrop-Recognition";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.uci.uceye;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
