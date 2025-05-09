@@ -41,6 +41,7 @@ class CameraVC: UIImagePickerController {
 
             // already authorized
             print()
+            
 
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { [unowned self] granted in

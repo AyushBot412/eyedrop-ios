@@ -4,6 +4,7 @@ import AVFoundation
 class HomeVC: UIViewController {
     var i = 0
     var timer: Timer!
+    var isQRCodeScan: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +90,7 @@ class HomeVC: UIViewController {
     
     // MARK: Helper Functions
     func configureViewComponents() {
+        print("homeVC configure view ", isQRCodeScan)
         view.backgroundColor = .clear
         
         
@@ -101,16 +103,18 @@ class HomeVC: UIViewController {
             captureVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             captureVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor) // Optional: Adjust as needed
         ])
-        captureVC.start()
+        captureVC.start(isQRCodeScan: self.isQRCodeScan)
         
-        view.addSubview(primaryButton)
-        primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            primaryButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 0), // Set width to minimum required
-            primaryButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 40), // Minimum height
-            primaryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            primaryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height * 0.2) // Centered in the bottom 40%
-        ])
+        if !self.isQRCodeScan{
+            view.addSubview(primaryButton)
+            primaryButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                primaryButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 0), // Set width to minimum required
+                primaryButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 40), // Minimum height
+                primaryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                primaryButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height * 0.2) // Centered in the bottom 40%
+            ])
+        }
     }
     
     // Function to get the complementary color

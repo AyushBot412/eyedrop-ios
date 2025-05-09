@@ -18,14 +18,19 @@ import Photos
 
 
 internal let hasNotch = UIDevice.current.hasNotch
-class CaptureVC: UIViewController {
+class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     // MARK: Intrinsic
+    
+    var captureSession: AVCaptureSession?
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    var isQRCodeScan: Bool = false
+    var prescriptionList: [Prescription] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .black
-        
+        setupQRCodeScanning()
 
     }
     
@@ -56,7 +61,128 @@ class CaptureVC: UIViewController {
         nextLevel.torchMode = .off
 
     }
+    
+    func startQRCodeScanning() {
+            setupQRCodeScanning()
+        }
+    
+    
+    func setupQRCodeScanning() {
+        print("QR scanning setup started")
+        captureSession = AVCaptureSession()
+        
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+            print("Failed to access camera.")
+            return
+        }
+        
+        do {
+            let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            if (captureSession?.canAddInput(videoInput) == true) {
+                captureSession?.addInput(videoInput)
+            } else {
+                print("Could not add video input.")
+                return
+            }
+        } catch {
+            print("Error creating video input: \(error)")
+            return
+        }
+        
+        let metadataOutput = AVCaptureMetadataOutput()
+        if (captureSession?.canAddOutput(metadataOutput) == true) {
+            captureSession?.addOutput(metadataOutput)
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            metadataOutput.metadataObjectTypes = [.qr]
+            
+            // Ensure the metadata output is mapped correctly
+            if let previewLayer = previewLayer {
+                metadataOutput.rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: view.bounds)
+            }
 
+            print("Metadata output added")
+        } else {
+            print("Could not add metadata output.")
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.captureSession?.startRunning()  // Runs on a background thread
+            
+            DispatchQueue.main.async {
+                self?.previewLayer = AVCaptureVideoPreviewLayer(session: self!.captureSession!)
+                self?.previewLayer?.frame = self!.view.layer.bounds
+                self?.previewLayer?.videoGravity = .resizeAspectFill
+                self?.view.layer.addSublayer(self!.previewLayer!)
+            }
+        }
+    }
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+              let qrString = metadataObject.stringValue else {
+            print("No QR code detected")
+            return
+        }
+
+        // Stop scanning to prevent duplicate alerts
+        captureSession?.stopRunning()
+
+        // Show a notification to confirm scanning
+        showNotif(title: "QR Code Scanned Successfully", message: "Continue?")
+        
+        let cleanedQRString = qrString.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Convert JSON string into Data
+        if let jsonData = cleanedQRString.data(using: .utf8) {
+            print("JSON Data String: \(String(data: jsonData, encoding: .utf8) ?? "Invalid JSON")")
+
+            do {
+                let prescriptions = try JSONDecoder().decode([Prescription].self, from: jsonData)
+                print("Successfully Decoded Prescriptions: \(prescriptions)")
+                prescriptionList = prescriptions
+
+                // Show a success alert with first prescription's details
+                if let firstPrescription = prescriptions.first {
+                    showNotif(title: "Prescription Info", message: "Medicine: \(firstPrescription.medicineName)")
+                }
+                
+                navigateToInstructVC()
+//                 Handle and update the UI with new prescriptions
+//                if let instructVC = self.presentingViewController as? InstructVC {
+//                    instructVC.handleNewPrescriptions(prescriptions)
+//                } else {
+//                    print("Error: Could not find InstructVC instance")
+//                }
+                
+            } catch {
+                print("JSON Decoding Error: \(error)")
+                showNotif(title: "Error", message: "Invalid prescription format. Please scan a valid QR code.") //change show notif function
+            }
+        } else {
+            showNotif(title: "Error", message: "Failed to process QR code.")
+        }
+    }
+    
+    
+    func showNotif(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            
+            self.captureSession?.stopRunning() // Restart scanning after dismissing alert
+//            self.navigateToInstructVC()
+        })
+        present(alert, animated: true)
+    }
+    
+    func navigateToInstructVC() {
+        let instructVC = InstructVC() // Create your view controller instance
+        instructVC.updatePrescriptions(with: self.prescriptionList)
+        self.view.window?.rootViewController = instructVC // Set the root view controller
+        
+        }
+    
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -162,9 +288,11 @@ class CaptureVC: UIViewController {
     
     
     // MARK: Helper functions
-    func start() {
+    func start(isQRCodeScan: Bool) {
+        self.isQRCodeScan = isQRCodeScan
         self.checkAuthorization()
         print("called start")
+        
     }
     
     func stop(){
@@ -182,7 +310,7 @@ class CaptureVC: UIViewController {
 
                 self.configurePreviewView()
 
-                if accessGranted {
+                if accessGranted{
                     self.configureNextLevel()
                 }
 
@@ -206,6 +334,7 @@ class CaptureVC: UIViewController {
             //            self.setup(accessGranted: true)
             hasVideoAccess = true
             checkMicrophoneAuthorization()
+            setupQRCodeScanning()
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { [unowned self] granted in
                 if granted {
@@ -213,6 +342,7 @@ class CaptureVC: UIViewController {
                     //                    self.setup(accessGranted: true)
                     self.hasVideoAccess = true
                     self.checkMicrophoneAuthorization()
+                    self.setupQRCodeScanning()
                 } else {
                     // Not authorized
                     //                    self.setup(accessGranted: false)
@@ -276,37 +406,45 @@ class CaptureVC: UIViewController {
     }
 
     func configureViewComponents() {
-
-        view.addSubview(flashButton)
-
-
-        view.addSubview(photoLibrary)
-        view.addSubview(frontFlash)
-        view.addSubview(zoomSlider)
-        view.addSubview(zoomButton)
-        
-        let centerOffset: CGFloat = 50 // Adjust this value to move the slider farther down
-
-        zoomSlider.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, centerX: view.centerXAnchor, paddingTop: 0, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: SizeManager.padding, width: 0, height: 40)
-
-        // Set the top anchor to be lower than the center of the view
-        zoomSlider.topAnchor.constraint(equalTo: view.centerYAnchor, constant: centerOffset).isActive = true
-        
-        zoomButton.anchor(top: zoomSlider.bottomAnchor, left: nil, bottom: nil, right: nil, centerX: view.centerXAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: zoomButton.frame.width + 20, height: 40)
-        
-
-
-        let additionalTopPadding: CGFloat = 25 // Adjust this value as needed
-
-        flashButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, centerX: nil, paddingTop: SizeManager.padding + additionalTopPadding, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: 0, width: buttonWidth, height: buttonWidth)
-
-        flashButton.imageView?.anchor(top: flashButton.topAnchor, left: flashButton.leftAnchor, bottom: flashButton.bottomAnchor, right: flashButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
-
-        frontFlash.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
-
-
-        
-        addGestures()
+        if isQRCodeScan {
+            let maskView = QRCodeMask(frame: view.bounds)
+            maskView.backgroundColor = .clear
+            view.addSubview(maskView)
+        }
+        else{
+            
+            
+            view.addSubview(flashButton)
+            
+            
+            view.addSubview(photoLibrary)
+            view.addSubview(frontFlash)
+            view.addSubview(zoomSlider)
+            view.addSubview(zoomButton)
+            
+            let centerOffset: CGFloat = 50 // Adjust this value to move the slider farther down
+            
+            zoomSlider.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, centerX: view.centerXAnchor, paddingTop: 0, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: SizeManager.padding, width: 0, height: 40)
+            
+            // Set the top anchor to be lower than the center of the view
+            zoomSlider.topAnchor.constraint(equalTo: view.centerYAnchor, constant: centerOffset).isActive = true
+            
+            zoomButton.anchor(top: zoomSlider.bottomAnchor, left: nil, bottom: nil, right: nil, centerX: view.centerXAnchor, paddingTop: 10, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: zoomButton.frame.width + 20, height: 40)
+            
+            
+            
+            let additionalTopPadding: CGFloat = 25 // Adjust this value as needed
+            
+            flashButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, centerX: nil, paddingTop: SizeManager.padding + additionalTopPadding, paddingLeft: SizeManager.padding, paddingBottom: 0, paddingRight: 0, width: buttonWidth, height: buttonWidth)
+            
+            flashButton.imageView?.anchor(top: flashButton.topAnchor, left: flashButton.leftAnchor, bottom: flashButton.bottomAnchor, right: flashButton.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
+            
+            frontFlash.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
+            
+            
+            
+            addGestures()
+        }
     }
     
     func getLastImageFromPhotoLibrary() {
@@ -599,6 +737,7 @@ class CaptureVC: UIViewController {
 
     }
     
+    
 //    func textToSpeech(bottle: String){
 //        self.lastSpoke = bottle
 //        let fileName = bottle.lowercased()
@@ -707,6 +846,8 @@ extension CaptureVC: UIGestureRecognizerDelegate {
 
 
 
+
+
 //MARK: -Next level video delegate
 extension CaptureVC: NextLevelVideoDelegate {
     // video zoom
@@ -811,3 +952,5 @@ extension CaptureVC: NextLevelDelegate {
 
     public func nextLevelCaptureModeDidChange(_: NextLevel) {}
 }
+
+
