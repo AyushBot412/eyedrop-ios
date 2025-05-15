@@ -4,7 +4,7 @@ class BaseVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //configureToolbar()
+//        configureToolbar()
     }
     
     func configureToolbar() {
@@ -16,6 +16,7 @@ class BaseVC: UIViewController {
         // Create buttons for the toolbar
         let aboutButton = UIBarButtonItem(title: "About", style: .plain, target: self, action: #selector(didTapAbout))
         let cameraButton = UIBarButtonItem(title: "Camera", style: .plain, target: self, action: #selector(didTapCamera))
+//        let instructButton = UIBarButtonItem(title: "Instruct", style: .plain, target: self, action: #selector(didTapInstruct))
 
         // Add flexible space items to center the buttons
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -48,5 +49,11 @@ class BaseVC: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         // Implement camera action
     }
+//    
+//    @objc func didTapInstruct() {
+//        let vc = InstructVC()
+//        self.navigationController?.pushViewController(vc, animated: true)
+//        // Implement camera action
+//    }
     
 }

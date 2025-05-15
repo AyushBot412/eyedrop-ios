@@ -43,6 +43,10 @@
 		3424DC352BE4B6F10050E0C0 /* vigamox.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */; };
 		34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */; };
 		34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */; };
+		7081C8E02D8CAF6C0069DEEE /* InstructVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081C8DF2D8CAF650069DEEE /* InstructVC.swift */; };
+		708347C02D8D26E000DC6510 /* QRCodeMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708347BF2D8D26C800DC6510 /* QRCodeMask.swift */; };
+		708347C22D8D2BF700DC6510 /* PrescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708347C12D8D2BED00DC6510 /* PrescriptionModel.swift */; };
+		70C571A32DCE860D0026D3BF /* PrescriptionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +89,10 @@
 		3424DC342BE4B6F10050E0C0 /* vigamox.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = vigamox.mp3; sourceTree = "<group>"; };
 		34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		7081C8DF2D8CAF650069DEEE /* InstructVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructVC.swift; sourceTree = "<group>"; };
+		708347BF2D8D26C800DC6510 /* QRCodeMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeMask.swift; sourceTree = "<group>"; };
+		708347C12D8D2BED00DC6510 /* PrescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionModel.swift; sourceTree = "<group>"; };
+		70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailVC.swift; sourceTree = "<group>"; };
 		97D39053F8A17E406D434843 /* Pods-Eyedrop Recognition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eyedrop Recognition.debug.xcconfig"; path = "Target Support Files/Pods-Eyedrop Recognition/Pods-Eyedrop Recognition.debug.xcconfig"; sourceTree = "<group>"; };
 		FFD238FF1A3992AEC8222ABC /* Pods_Eyedrop_Recognition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eyedrop_Recognition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -148,12 +156,14 @@
 		33A7EF0A267D59B2005F632C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7081C8DF2D8CAF650069DEEE /* InstructVC.swift */,
 				33A7EEF9267D5906005F632C /* ContainerVC.swift */,
 				33A7EF1B267D63E4005F632C /* HomeVC.swift */,
 				33A7EF1D267D63F0005F632C /* CameraVC.swift */,
 				33A10B9A26C473B10070173C /* CaptureVC.swift */,
 				34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */,
 				34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */,
+				70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -161,9 +171,11 @@
 		33A7EF0B267D59B9005F632C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				708347C12D8D2BED00DC6510 /* PrescriptionModel.swift */,
 				33002E7426C5B12D0075B035 /* NEW_mnetv3_-d__trainable_withMoreAug_0.0001lr_224_dim_32_bs_10_epochs_0.6_droput_0.9613970518112183_acc.h5.mlmodel */,
 				33002E6C26C48FE50075B035 /* NEW_mnetv2_-d__trainable_withAug_1e-5_lr_224_dim_32_bs_20_epochs_0.5_droput_0.9375_acc.h5.mlmodel */,
 				33A7EF19267D62A0005F632C /* ContainerVCModel.swift */,
+				708347BF2D8D26C800DC6510 /* QRCodeMask.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -392,12 +404,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				708347C02D8D26E000DC6510 /* QRCodeMask.swift in Sources */,
 				33A7EF27267D6D96005F632C /* SizeManager.swift in Sources */,
 				33A7EF2F267D72BA005F632C /* ControllerManager.swift in Sources */,
 				33A7EF18267D5EF1005F632C /* BottleDictionaries.swift in Sources */,
 				33A7EEFA267D5906005F632C /* ContainerVC.swift in Sources */,
 				33A7EF29267D6F3C005F632C /* ViewDelegates.swift in Sources */,
 				33A7EF25267D6D2E005F632C /* Fonts.swift in Sources */,
+				7081C8E02D8CAF6C0069DEEE /* InstructVC.swift in Sources */,
 				33A7EF31267D7372005F632C /* CoreDelegates.swift in Sources */,
 				33A10B9B26C473B20070173C /* CaptureVC.swift in Sources */,
 				33A7EF14267D5B79005F632C /* TextRecognitionManager.swift in Sources */,
@@ -410,8 +424,10 @@
 				33A7EF1E267D63F0005F632C /* CameraVC.swift in Sources */,
 				33A7EF23267D66F5005F632C /* Factory.swift in Sources */,
 				33A7EF1A267D62A0005F632C /* ContainerVCModel.swift in Sources */,
+				708347C22D8D2BF700DC6510 /* PrescriptionModel.swift in Sources */,
 				33002E6D26C48FE50075B035 /* NEW_mnetv2_-d__trainable_withAug_1e-5_lr_224_dim_32_bs_20_epochs_0.5_droput_0.9375_acc.h5.mlmodel in Sources */,
 				34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */,
+				70C571A32DCE860D0026D3BF /* PrescriptionDetailVC.swift in Sources */,
 				34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */,
 				33A1A4DC26C0B8760070173C /* LabelRecognitionManager.swift in Sources */,
 				33A7EF20267D66A3005F632C /* Extensions.swift in Sources */,
@@ -562,7 +578,7 @@
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -588,7 +604,7 @@
 				INFOPLIST_FILE = "Eyedrop Recognition/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "UCEye: AI Driven Eyedrop Bottle Identifier";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
