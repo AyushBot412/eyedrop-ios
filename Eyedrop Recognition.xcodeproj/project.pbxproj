@@ -46,6 +46,7 @@
 		7081C8E02D8CAF6C0069DEEE /* InstructVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081C8DF2D8CAF650069DEEE /* InstructVC.swift */; };
 		708347C02D8D26E000DC6510 /* QRCodeMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708347BF2D8D26C800DC6510 /* QRCodeMask.swift */; };
 		708347C22D8D2BF700DC6510 /* PrescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708347C12D8D2BED00DC6510 /* PrescriptionModel.swift */; };
+		70C571A32DCE860D0026D3BF /* PrescriptionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		7081C8DF2D8CAF650069DEEE /* InstructVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructVC.swift; sourceTree = "<group>"; };
 		708347BF2D8D26C800DC6510 /* QRCodeMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeMask.swift; sourceTree = "<group>"; };
 		708347C12D8D2BED00DC6510 /* PrescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionModel.swift; sourceTree = "<group>"; };
+		70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailVC.swift; sourceTree = "<group>"; };
 		97D39053F8A17E406D434843 /* Pods-Eyedrop Recognition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eyedrop Recognition.debug.xcconfig"; path = "Target Support Files/Pods-Eyedrop Recognition/Pods-Eyedrop Recognition.debug.xcconfig"; sourceTree = "<group>"; };
 		FFD238FF1A3992AEC8222ABC /* Pods_Eyedrop_Recognition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eyedrop_Recognition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				33A10B9A26C473B10070173C /* CaptureVC.swift */,
 				34F3D4512C5CA3AE00BCAF02 /* AboutVC.swift */,
 				34F3D4532C5CAA9900BCAF02 /* BaseVC.swift */,
+				70C571A22DCE860D0026D3BF /* PrescriptionDetailVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				708347C22D8D2BF700DC6510 /* PrescriptionModel.swift in Sources */,
 				33002E6D26C48FE50075B035 /* NEW_mnetv2_-d__trainable_withAug_1e-5_lr_224_dim_32_bs_20_epochs_0.5_droput_0.9375_acc.h5.mlmodel in Sources */,
 				34F3D4542C5CAA9900BCAF02 /* BaseVC.swift in Sources */,
+				70C571A32DCE860D0026D3BF /* PrescriptionDetailVC.swift in Sources */,
 				34F3D4522C5CA3AE00BCAF02 /* AboutVC.swift in Sources */,
 				33A1A4DC26C0B8760070173C /* LabelRecognitionManager.swift in Sources */,
 				33A7EF20267D66A3005F632C /* Extensions.swift in Sources */,

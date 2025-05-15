@@ -30,8 +30,9 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         super.viewDidLoad()
 
         view.backgroundColor = .black
-        setupQRCodeScanning()
-
+        if isQRCodeScan {
+                setupQRCodeScanning()
+        }
     }
     
 
@@ -42,6 +43,7 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
         //nextLevel.configureAutoFocusMode()
         nextLevel.videoZoomFactor = 0
+        
 
 
     }
@@ -62,9 +64,8 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     }
     
-    func startQRCodeScanning() {
-            setupQRCodeScanning()
-        }
+    
+    //MARK: QR CODE SCANNING
     
     
     func setupQRCodeScanning() {
@@ -124,6 +125,7 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             print("No QR code detected")
             return
         }
+        print("Scanned QR Code: \(qrString)")
 
         // Stop scanning to prevent duplicate alerts
         captureSession?.stopRunning()
@@ -138,30 +140,24 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             print("JSON Data String: \(String(data: jsonData, encoding: .utf8) ?? "Invalid JSON")")
 
             do {
-                let prescriptions = try JSONDecoder().decode([Prescription].self, from: jsonData)
-                print("Successfully Decoded Prescriptions: \(prescriptions)")
-                prescriptionList = prescriptions
-
-                // Show a success alert with first prescription's details
-                if let firstPrescription = prescriptions.first {
-                    showNotif(title: "Prescription Info", message: "Medicine: \(firstPrescription.medicineName)")
+//                let prescriptions = try JSONDecoder().decode([Prescription].self, from: jsonData)
+//                print("Successfully Decoded Prescriptions: \(prescriptions)")
+//                prescriptionList = prescriptions
+//
+//                // Show a success alert with first prescription's details
+//                if let firstPrescription = prescriptions.first {
+//                    showNotif(title: "Prescription Info", message: "Medicine: \(firstPrescription.medicineName)")
                 }
+
                 
-                navigateToInstructVC()
-//                 Handle and update the UI with new prescriptions
-//                if let instructVC = self.presentingViewController as? InstructVC {
-//                    instructVC.handleNewPrescriptions(prescriptions)
-//                } else {
-//                    print("Error: Could not find InstructVC instance")
-//                }
-                
-            } catch {
-                print("JSON Decoding Error: \(error)")
-                showNotif(title: "Error", message: "Invalid prescription format. Please scan a valid QR code.") //change show notif function
             }
-        } else {
-            showNotif(title: "Error", message: "Failed to process QR code.")
-        }
+//        catch {
+//                print("JSON Decoding Error: \(error)")
+//                showNotif(title: "Error", message: "Invalid prescription format. Please scan a valid QR code.") //change show notif function
+//            }
+//        } else {
+//            showNotif(title: "Error", message: "Failed to process QR code.")
+//        }
     }
     
     
@@ -169,18 +165,24 @@ class CaptureVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
             
-            self.captureSession?.stopRunning() // Restart scanning after dismissing alert
-//            self.navigateToInstructVC()
+            self.captureSession?.stopRunning()
+            self.previewLayer?.removeFromSuperlayer()
+            self.navigateToInstructVC()
         })
         present(alert, animated: true)
     }
     
     func navigateToInstructVC() {
-        let instructVC = InstructVC() // Create your view controller instance
-        instructVC.updatePrescriptions(with: self.prescriptionList)
-        self.view.window?.rootViewController = instructVC // Set the root view controller
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let instructVC = storyboard.instantiateViewController(withIdentifier: "InstructVC") as? InstructVC else {
+            print("Failed to instantiate InstructVC")
+            return
         }
+//CHANGE THIS LATER
+//        instructVC.updatePrescriptions(with: self.prescriptionList)
+        self.present(instructVC, animated: true, completion: nil)
+    }
+    
     
     
     override var prefersStatusBarHidden: Bool {
@@ -856,6 +858,8 @@ extension CaptureVC: NextLevelVideoDelegate {
 
     // video frame processing
     public func nextLevel(_: NextLevel, willProcessRawVideoSampleBuffer sampleBuffer: CMSampleBuffer, onQueue _: DispatchQueue) {
+        
+        guard !self.isQRCodeScan else { return }
         
         guard !self.isClassifying else { return }
 

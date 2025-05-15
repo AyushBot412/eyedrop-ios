@@ -11,7 +11,7 @@
         <!--InstructVC-->
         <scene sceneID="bBG-nR-KoM">
             <objects>
-                <viewController id="GZz-17-s84" customClass="InstructVC" customModule="Eyedrop_Recognition" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InstructVC" id="GZz-17-s84" customClass="InstructVC" customModule="Eyedrop_Recognition" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PSH-Og-Qbw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,11 +26,26 @@
             </objects>
             <point key="canvasLocation" x="21" y="846"/>
         </scene>
+        <!--Prescription DetailVC-->
+        <scene sceneID="bAv-Qz-Cps">
+            <objects>
+                <viewController storyboardIdentifier="PrescriptionDetailVC" id="ZQh-Av-AOb" customClass="PrescriptionDetailVC" customModule="Eyedrop_Recognition" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rIe-Bd-JSD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="81g-lD-klb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qar-An-uU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24" y="1562"/>
+        </scene>
         <!--ContainerVC-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="ContainerVC" customModule="Eyedrop_Recognition" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                    <view key="view" contentMode="scaleAspectFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
